@@ -7,6 +7,9 @@ import shlex
 import platform
 import argparse
 import json
+import torch
+
+torch.cuda.device_count()
 
 dir_repos = "repositories"
 dir_extensions = "extensions"
@@ -161,7 +164,7 @@ def git_clone(url, dir, name, commithash=None):
     if commithash is not None:
         run(f'"{git}" -C "{dir}" checkout {commithash}', None, "Couldn't checkout {name}'s hash: {commithash}")
 
-        
+
 def version_check(commit):
     try:
         import requests
@@ -311,7 +314,7 @@ def prepare_environment():
 
     if update_check:
         version_check(commit)
-    
+
     if "--exit" in sys.argv:
         print("Exiting because of --exit argument")
         exit(0)
